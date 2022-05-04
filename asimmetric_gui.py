@@ -122,7 +122,6 @@ class Ui_MainWindow(object):
             self.Full_Start.setVisible(False)
             self.End.setVisible(True)
             self.Start.setVisible(True)
-            self.Save_text_decr.setVisible(True)
             self.Open_dir_to_save.setVisible(True)
 
     def start_click(self):
@@ -155,11 +154,13 @@ class Ui_MainWindow(object):
     def select_dir(self):
      self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\PycharmProjects\\encryptor\\',
                                                 "Text files (*.txt)")
+
     def open_file(self):
         if self.Method.currentIndex() == 0:
             os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\data_encrypted.txt")
         if self.Method.currentIndex() == 1:
             os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\data_encrypted_decrypted.txt")
+
 
 if __name__ == "__main__":
     import sys
