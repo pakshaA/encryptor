@@ -1,5 +1,3 @@
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Cesar import *
 
@@ -15,11 +13,6 @@ class Ui_MainWindow(object):
         self.Input_Text.setGeometry(QtCore.QRect(30, 10, 381, 101))
         self.Input_Text.setAccessibleDescription("")
         self.Input_Text.setObjectName("Input_Text")
-        self.Cipher_selector = QtWidgets.QComboBox(self.centralwidget)
-        self.Cipher_selector.setGeometry(QtCore.QRect(30, 130, 181, 21))
-        self.Cipher_selector.setObjectName("Cipher_selector")
-        self.Cipher_selector.addItem("")
-        self.Cipher_selector.addItem("")
         self.Key_2 = QtWidgets.QLabel(self.centralwidget)
         self.Key_2.setGeometry(QtCore.QRect(30, 170, 71, 16))
         self.Key_2.setObjectName("Key_2")
@@ -33,7 +26,7 @@ class Ui_MainWindow(object):
         self.Output_Text.setGeometry(QtCore.QRect(30, 260, 391, 131))
         self.Output_Text.setObjectName("Output_Text")
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(230, 130, 181, 22))
+        self.comboBox.setGeometry(QtCore.QRect(30, 130, 381, 22))
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -44,8 +37,6 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.Input_Text, self.Encrypt)
         MainWindow.setTabOrder(self.Encrypt, self.Output_Text)
-        MainWindow.setTabOrder(self.Output_Text, self.Cipher_selector)
-        MainWindow.setTabOrder(self.Cipher_selector, self.Key_value)
 
         self.Encrypt.clicked.connect(self.btn_click)
 
@@ -54,8 +45,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Шифратор"))
         self.Input_Text.setWhatsThis(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.Input_Text.setPlaceholderText(_translate("MainWindow", "Введите текст"))
-        self.Cipher_selector.setItemText(0, _translate("MainWindow", "Выберите метод шифрования"))
-        self.Cipher_selector.setItemText(1, _translate("MainWindow", "Шифр Цезаря (Модернизированный)"))
         self.Key_2.setText(_translate("MainWindow", "Ключ:"))
         self.Encrypt.setText(_translate("MainWindow", "Зашифровать"))
         self.comboBox.setItemText(0, _translate("MainWindow", "Выберите способ работы"))
@@ -63,9 +52,8 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(2, _translate("MainWindow", "Дешифрование"))
 
     def btn_click(self):
-        if self.Cipher_selector.currentIndex() == 1:
-            res = get_caesar(self.Input_Text.toPlainText(), int(self.Key_value.text()), self.comboBox.currentIndex())
-            self.Output_Text.setText(res)
+        res = get_caesar(self.Input_Text.toPlainText(), int(self.Key_value.text()), self.comboBox.currentIndex())
+        self.Output_Text.setText(res)
 
 
 if __name__ == "__main__":
