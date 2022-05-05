@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Cesar_gui import Ui_Cesar
+from asimmetric_gui import Ui_RSA
 
 
 class Ui_main_window(object):
@@ -37,11 +38,16 @@ class Main(QtWidgets.QWidget, Ui_main_window):
         self.setupUi(self)
 
         self.simmetric.clicked.connect(self.simmetric_start)
+        self.asimmetric.clicked.connect(self.asimmetric_start)
 
     def simmetric_start(self):
         self.Cesar = Cesar()
         self.Cesar.show()
 
+
+    def asimmetric_start(self):
+        self.RSA = RSA()
+        self.RSA.show()
 
 class Cesar(QtWidgets.QWidget, Ui_Cesar):
     def __init__(self, parent=None):
@@ -49,13 +55,14 @@ class Cesar(QtWidgets.QWidget, Ui_Cesar):
         self.setupUi(self)
 
 
+class RSA(QtWidgets.QWidget, Ui_RSA):
+    def __init__(self, parent=None):
+        super(RSA, self).__init__(parent)
+        self.setupUi(self)
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-#    main_window = QtWidgets.QMainWindow()
-#    ui = Ui_main_window()
-#    ui.setupUi(main_window)
-#    main_window.show()
     main = Main()
     main.show()
     sys.exit(app.exec_())
