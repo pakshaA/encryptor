@@ -6,8 +6,6 @@ class Ui_Cesar(object):
     def setupUi(self, Cesar):
         Cesar.setObjectName("Cesar")
         Cesar.resize(451, 409)
-#        self.centralwidget = QtWidgets.QWidget(Cesar)
-#        self.centralwidget.setObjectName("centralwidget")
         self.Input_Text = QtWidgets.QTextEdit(Cesar)
         self.Input_Text.setGeometry(QtCore.QRect(30, 10, 381, 101))
         self.Input_Text.setAccessibleDescription("")
