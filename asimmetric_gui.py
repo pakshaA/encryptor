@@ -8,6 +8,7 @@ import os
 
 class Ui_RSA(object):
     fname = ""
+
     def setupUi(self, RSA):
         RSA.setObjectName("RSA")
         RSA.resize(516, 552)
@@ -63,31 +64,38 @@ class Ui_RSA(object):
         self.Full_Start.clicked.connect(self.start)
         self.End.clicked.connect(self.end)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, RSA):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.Full_Start.setText(_translate("MainWindow", "Начать работу с выбранным методом"))
-        self.End.setText(_translate("MainWindow", "Закончить работу с выбранным методом"))
-        self.Method.setItemText(0, _translate("MainWindow", "Шифрование"))
-        self.Method.setItemText(1, _translate("MainWindow", "Дешифрование"))
-        self.Select_dir.setText(_translate("MainWindow", "Нaжмите, чтобы выбрать файл "))
-        self.Open_dir_to_save.setText(_translate("MainWindow", "Открыть файл"))
-        self.Select_file_encr.setText(_translate("MainWindow", "Выберите файл,\n"
-                                                          "который требуется зашифровать"))
-        self.Select_file_decr.setText(_translate("MainWindow", "Выберите файл,\n"
-                                                          "который требуется дешифровать"))
+        RSA.setWindowTitle(_translate("RSA", "Шифратор"))
+        self.Full_Start.setText(_translate("RSA", "Начать работу с выбранным методом"))
+        self.End.setText(_translate("RSA", "Закончить работу с выбранным методом"))
+        self.Method.setItemText(0, _translate("RSA", "Шифрование"))
+        self.Method.setItemText(1, _translate("RSA", "Дешифрование"))
+        self.Select_dir.setText(_translate("RSA", "Нaжмите, чтобы выбрать файл "))
+        self.Open_dir_to_save.setText(_translate("RSA", "Открыть файл"))
+        self.Select_file_encr.setText(_translate("RSA", "Выберите файл,\n"
+                                                               "который требуется зашифровать"))
+        self.Select_file_decr.setText(_translate("RSA", "Выберите файл,\n"
+                                                               "который требуется дешифровать"))
 
-        self.Keys_gen.setText(_translate("MainWindow", "Нажмите, чтобы сгенерировать пару ключей"))
-        self.dir_to_keys.setText(_translate("MainWindow",
-                                            "<html><head/><body><p>Ключи сгенерированы в C:\\Users\\paksh\\PycharmProjects\\encryptor\\private</p><p>и C:\\Users\\paksh\\PycharmProjects\\encryptor\\public</p></body></html>"))
+        self.Keys_gen.setText(_translate("RSA", "Нажмите, чтобы сгенерировать пару ключей"))
+        self.dir_to_keys.setText(_translate("RSA",
+                                            "<html><head/><body><p>Ключи сгенерированы в"
+                                            " C:\\Users\\paksh\\PycharmProjects\\encryptor"
+                                            "\\for_asimmetric\\private</p><p>"
+                                            "и C:\\Users\\paksh\\PycharmProjects\\encryptor"
+                                            "\\for_asimmetric\\public</p></body></html>"))
 
-        self.Save_text_encr.setText(_translate("MainWindow", "Файл с зашифрованным текстом сохранен в\n"
-                                                        " C:Users\\paksh\\PycharmProjects\\test_with_text\\data_encrypted"))
-        self.Save_text_decr.setText(_translate("MainWindow", "Файл с дешифрованным текстом сохранен в\n"
-                                                        " C:Users\\paksh\\PycharmProjects\\encryptor\\data_encrypted_decrypted"))
-        self.Tip_to_open.setText(_translate("MainWindow",
-                                            "<html><head/><body><p>Нажмите на кнопку, </p><p>чтобы открыть полученный текст</p></body></html>"))
-        self.Start.setText(_translate("MainWindow", "Начать работу"))
+        self.Save_text_encr.setText(_translate("RSA", "Файл с зашифрованным текстом сохранен в\n"
+                                                            " C:Users\\paksh\\PycharmProjects\\encryptor"
+                                                             "\\for_asimmetric\\data_encrypted"))
+        self.Save_text_decr.setText(_translate("RSA", "Файл с дешифрованным текстом сохранен в\n"
+                                                      " C:Users\\paksh\\PycharmProjects\\encryptor"
+                                                      "\\for_asimmetric\\data_encrypted_decrypted"))
+        self.Tip_to_open.setText(_translate("RSA",
+                                            "<html><head/><body><p>Нажмите на кнопку,"
+                                            " </p><p>чтобы открыть полученный текст</p></body></html>"))
+        self.Start.setText(_translate("RSA", "Начать работу"))
 
         self.Select_file_encr.setVisible(False)
         self.Open_dir_to_save.setVisible(False)
@@ -122,10 +130,10 @@ class Ui_RSA(object):
 
     def start_click(self):
         if self.Method.currentIndex() == 0:
-            encrypt(self.fname[0], "public.pem")
+            encrypt(self.fname[0], "C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.pem")
             self.Save_text_encr.setVisible(True)
         else:
-            decrypt(self.fname[0], "private.pem")
+            decrypt(self.fname[0], "C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.pem")
             self.Save_text_decr.setVisible(True)
 
     def keys_gen(self):
@@ -148,11 +156,12 @@ class Ui_RSA(object):
         self.Full_Start.setVisible(True)
 
     def select_dir(self):
-     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\PycharmProjects\\encryptor\\',
-                                                "Text files (*.txt)")
+     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\PycharmProjects\\'
+                                                                 'encryptor\\for_asimmetric\\',
+                                                                 "Text files (*.txt)")
 
     def open_file(self):
         if self.Method.currentIndex() == 0:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\data_encrypted.txt")
+            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\data_encrypted.txt")
         if self.Method.currentIndex() == 1:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\data_encrypted_decrypted.txt")
+            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\data_encrypted_decrypted.txt")
