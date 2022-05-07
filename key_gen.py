@@ -6,12 +6,12 @@ def key_gen():
     privateKey = key.export_key()
     publicKey = key.publickey().export_key()
 
-    with open('private.pem', 'wb') as f:
+    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.pem', 'wb') as f:
         f.write(privateKey)
-    with open('private.txt', 'wb') as f:
+    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.txt', 'wb') as f:
         f.write(privateKey)
 
-    with open('public.pem', 'wb') as f:
+    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.pem', 'wb') as f:
         f.write(publicKey)
-    with open('public.txt', 'wb') as f:
+    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.txt', 'wb') as f:
         f.write(publicKey)
