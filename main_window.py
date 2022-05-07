@@ -1,23 +1,26 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Cesar_gui import Ui_Cesar
 from asimmetric_gui import Ui_RSA
-
+from Cesar_gui import Ui_Cesar
+from simmetric_gui import Ui_simmetric
 
 class Ui_main_window(object):
     def setupUi(self, main_window):
         main_window.setObjectName("main_window")
-        main_window.resize(420, 200)
+        main_window.resize(440, 250)
+        self.simmetric_Cesar = QtWidgets.QPushButton(main_window)
+        self.simmetric_Cesar.setGeometry(QtCore.QRect(40, 50, 360, 30))
+        self.simmetric_Cesar.setObjectName("simmetric")
         self.simmetric = QtWidgets.QPushButton(main_window)
-        self.simmetric.setGeometry(QtCore.QRect(40, 50, 341, 30))
+        self.simmetric.setGeometry(QtCore.QRect(40, 90, 360, 30))
         self.simmetric.setObjectName("simmetric")
         self.asimmetric = QtWidgets.QPushButton(main_window)
-        self.asimmetric.setGeometry(QtCore.QRect(40, 90, 341, 30))
+        self.asimmetric.setGeometry(QtCore.QRect(40, 130, 360, 30))
         self.asimmetric.setObjectName("asimmetric")
-        self.pushButton_3 = QtWidgets.QPushButton(main_window)
-        self.pushButton_3.setGeometry(QtCore.QRect(40, 130, 341, 30))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(main_window)
+        self.pushButton_4.setGeometry(QtCore.QRect(40, 170, 360, 30))
+        self.pushButton_4.setObjectName("asimmetric")
         self.label = QtWidgets.QLabel(main_window)
-        self.label.setGeometry(QtCore.QRect(40, 20, 361, 30))
+        self.label.setGeometry(QtCore.QRect(40, 20, 360, 30))
         self.label.setObjectName("label")
 
         self.retranslateUi(main_window)
@@ -26,10 +29,12 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "Шифратор"))
-        self.simmetric.setText(_translate("main_window", "Симметричное шифрование (Шифр Цезаря)"))
+        self.simmetric_Cesar.setText(_translate("main_window", "Симметричное шифрование (Шифр Цезаря)"))
+        self.simmetric.setText(_translate("main_window", "Симметричное шифрование (Случайный ключ)"))
         self.asimmetric.setText(_translate("main_window", "Ассиметричное шифрование (RSA)"))
-        self.pushButton_3.setText(_translate("main_window", "PushButton"))
-        self.label.setText(_translate("main_window", "<html><head/><body><p>Выберите алгоритм, с которым будете работать:</p><p><br/></p></body></html>"))
+        self.pushButton_4.setText(_translate("main_window", "PushButton"))
+        self.label.setText(_translate("main_window", "<html><head/><body><p>Выберите алгоритм"
+                                                     ", с которым будете работать:</p><p><br/></p></body></html>"))
 
 
 class Main(QtWidgets.QWidget, Ui_main_window):
@@ -37,17 +42,22 @@ class Main(QtWidgets.QWidget, Ui_main_window):
         super(Main, self).__init__(parent)
         self.setupUi(self)
 
+        self.simmetric_Cesar.clicked.connect(self.simmetric_Cesar_start)
         self.simmetric.clicked.connect(self.simmetric_start)
         self.asimmetric.clicked.connect(self.asimmetric_start)
 
-    def simmetric_start(self):
+    def simmetric_Cesar_start(self):
         self.Cesar = Cesar()
         self.Cesar.show()
 
+    def simmetric_start(self):
+        self.simmetric = Simmetric()
+        self.simmetric.show()
 
     def asimmetric_start(self):
         self.RSA = RSA()
         self.RSA.show()
+
 
 class Cesar(QtWidgets.QWidget, Ui_Cesar):
     def __init__(self, parent=None):
@@ -55,10 +65,17 @@ class Cesar(QtWidgets.QWidget, Ui_Cesar):
         self.setupUi(self)
 
 
+class Simmetric(QtWidgets.QWidget, Ui_simmetric):
+    def __init__(self, parent=None):
+        super(Simmetric, self).__init__(parent)
+        self.setupUi(self)
+
+
 class RSA(QtWidgets.QWidget, Ui_RSA):
     def __init__(self, parent=None):
         super(RSA, self).__init__(parent)
         self.setupUi(self)
+
 
 if __name__ == "__main__":
     import sys
