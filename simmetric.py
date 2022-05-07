@@ -16,8 +16,7 @@ def load_key():
 
 
 def encrypt(filename):
-    key = open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_simmetric\\simmetric_key', 'rb').read()
-    f = Fernet(key)
+    f = Fernet(load_key())
     with open(filename, 'rb') as file:
         file_data = file.read()
     encrypted_data = f.encrypt(file_data)
