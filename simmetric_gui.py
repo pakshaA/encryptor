@@ -33,9 +33,6 @@ class Ui_simmetric(object):
         self.Tip_for_open_file = QtWidgets.QLabel(simmetric)
         self.Tip_for_open_file.setGeometry(QtCore.QRect(30, 220, 250, 40))
         self.Tip_for_open_file.setObjectName("Tip_for_open_file")
-        self.Tip_for_open_decr = QtWidgets.QLabel(simmetric)
-        self.Tip_for_open_decr.setGeometry(QtCore.QRect(30, 220, 250, 40))
-        self.Tip_for_open_decr.setObjectName("Tip_for_open_decr")
         self.open_file_btn = QtWidgets.QPushButton(simmetric)
         self.open_file_btn.setGeometry(QtCore.QRect(230, 225, 450, 30))
         self.open_file_btn.setObjectName("open_file_btn")
@@ -73,17 +70,15 @@ class Ui_simmetric(object):
         self.Key_gen.setText(_translate("simmetric", "Нажмите, чтобы сгенерировать ключ"))
         self.dir_to_key.setText(_translate("simmetric", "<html><head/><body><p>Ключ успешно сохранен в</p><p> "
                                                         "C:\\Users\\paksh\\PycharmProjects\\encryptor\\"
-                                                        "for_simmetric\\simmetric_key и</p><p> "
-                                                        "C:\\Users\\paksh\\PycharmProjects\\encryptor"
-                                                        "\\for_simmetric\\simmetric_key.txt</p></body></html>"))
+                                                        "for_simmetric\\simmetric_key</p></body></html>"))
         self.Tip_for_open_file.setText(_translate("simmetric", "Выберите файл, который \n"
                                                                "требуется зашифровать"))
         self.open_file_btn.setText(_translate("simmetric", "Нажмите, чтобы выбрать файл"))
         self.encr_save_text.setText(_translate("simmetric", "Зашифрованный текст сохранен в\n"
-                                                             "C:\\Users\\paksh\\PycharmProjects\\encryptor\\"
-                                                             "for_simmetric\\data_encrypted.txt"))
+                                                            "C:\\Users\\paksh\\PycharmProjects\\encryptor\\"
+                                                            "for_simmetric\\data_encrypted.txt"))
         self.Tip_toOpen_saved.setText(_translate("simmetric", "Нажмите, чтобы открыть\n"
-                                                               "полученный файл"))
+                                                              "полученный файл"))
         self.Open_Saved_File.setText(_translate("simmetric", "Открыть файл"))
         self.Full_end.setText(_translate("simmetric", "Закончить работу с выбранным методом"))
 
@@ -124,8 +119,8 @@ class Ui_simmetric(object):
             self.Tip_for_open_file.setText("Выберите файл, который \n"
                                            "требуется дешифровать")
             self.encr_save_text.setText("<html><head/><body><p>Дешифрованный текст сохранен в</p><p>"
-                                                            "C:\\\\Users\\\\paksh\\\\PycharmProjects\\\\encryptor"
-                                                            "\\\\for_simmetric\\\\data_decrypted.txt</p></body></html>")
+                                        "C:\\Users\\paksh\\PycharmProjects\\encryptor"
+                                        "\\for_simmetric\\data_decrypted.txt</p></body></html>")
 
     def key_gen(self):
         write_key()
@@ -154,7 +149,6 @@ class Ui_simmetric(object):
         self.Key_gen.setVisible(False)
         self.dir_to_key.setVisible(False)
         self.Tip_for_open_file.setVisible(False)
-        self.Tip_for_open_decr.setVisible(False)
         self.open_file_btn.setVisible(False)
         self.encr_save_text.setVisible(False)
         self.Tip_toOpen_saved.setVisible(False)
