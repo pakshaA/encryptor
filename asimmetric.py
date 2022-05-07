@@ -42,6 +42,6 @@ def decrypt(dataFile, privateKeyFile):
     data = cipher.decrypt_and_verify(ciphertext, tag)
 
     [fileName, fileExtension] = dataFile.split('.')
-    decryptedFile = fileName + '_decrypted' + fileExtension
+    decryptedFile = fileName + '_decrypted.' + fileExtension
     with open(decryptedFile, 'wb') as f:
         f.write(data)

@@ -8,10 +8,6 @@ def key_gen():
 
     with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.pem', 'wb') as f:
         f.write(privateKey)
-    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.txt', 'wb') as f:
-        f.write(privateKey)
 
     with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.pem', 'wb') as f:
-        f.write(publicKey)
-    with open('C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.txt', 'wb') as f:
         f.write(publicKey)
