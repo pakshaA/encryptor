@@ -75,13 +75,11 @@ class Ui_RSA(object):
         self.Keys_gen.setText(_translate("RSA", "Нажмите, чтобы сгенерировать пару ключей"))
         self.dir_to_keys.setText(_translate("RSA",
                                             "<html><head/><body><p>Ключи сгенерированы в</p><p>"
-                                            " C:\\Users\\paksh\\PycharmProjects\\encryptor"
-                                            "\\for_asimmetric\\private</p><p>"
-                                            "и C:\\Users\\paksh\\PycharmProjects\\encryptor"
-                                            "\\for_asimmetric\\public</p></body></html>"))
+                                            " C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\private</p><p>"
+                                            "и C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\"
+                                            "public</p></body></html>"))
         self.save_text.setText(_translate("RSA", "Файл с зашифрованным текстом сохранен в\n"
-                                                 " C:Users\\paksh\\PycharmProjects\\encryptor"
-                                                 "\\for_asimmetric\\data_encrypted"))
+                                                 " C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\\\data_encrypted"))
         self.Tip_to_open.setText(_translate("RSA",
                                             "<html><head/><body><p>Нажмите на кнопку, чтобы"
                                             " </p><p> открыть полученный текст</p></body></html>"))
@@ -126,14 +124,13 @@ class Ui_RSA(object):
 
     def start_click(self):
         if self.Method.currentIndex() == 0:
-            encrypt(self.fname[0], "C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\public.pem")
+            encrypt(self.fname[0], "C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\public.pem")
             self.save_text.setVisible(True)
         else:
-            decrypt(self.fname[0], "C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\private.pem")
+            decrypt(self.fname[0], "C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\private.pem")
             self.save_text.setVisible(True)
             self.save_text.setText("Файл с дешифрованным текстом сохранен в\n"
-                                   " C:Users\\paksh\\PycharmProjects\\encryptor"
-                                   "\\for_asimmetric\\data_decrypted")
+                                   " C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\data_decrypted")
 
     def keys_gen(self):
         if self.Method.currentIndex() == 0:
@@ -155,12 +152,11 @@ class Ui_RSA(object):
         self.start_txt.setVisible(False)
 
     def select_dir(self):
-     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\PycharmProjects\\'
-                                                                 'encryptor\\for_asimmetric\\',
+     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\',
                                                                  "Text files (*.txt)")
 
     def open_file(self):
         if self.Method.currentIndex() == 0:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\data_encrypted.txt")
+            os.system("C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\data_encrypted.txt")
         if self.Method.currentIndex() == 1:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_asimmetric\\data_encrypted_decrypted.txt")
+            os.system("C:\\Users\\paksh\\Desktop\\test_text\\asimmetric\\data_encrypted_decrypted.txt")

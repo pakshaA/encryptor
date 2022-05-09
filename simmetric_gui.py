@@ -69,14 +69,14 @@ class Ui_simmetric(object):
         self.Start.setText(_translate("simmetric", "Начать работу"))
         self.Key_gen.setText(_translate("simmetric", "Нажмите, чтобы сгенерировать ключ"))
         self.dir_to_key.setText(_translate("simmetric", "<html><head/><body><p>Ключ успешно сохранен в</p><p> "
-                                                        "C:\\Users\\paksh\\PycharmProjects\\encryptor\\"
-                                                        "for_simmetric\\simmetric_key</p></body></html>"))
+                                                        "C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\"
+                                                        "simmetric_key</p></body></html>"))
         self.Tip_for_open_file.setText(_translate("simmetric", "Выберите файл, который \n"
                                                                "требуется зашифровать"))
         self.open_file_btn.setText(_translate("simmetric", "Нажмите, чтобы выбрать файл"))
         self.encr_save_text.setText(_translate("simmetric", "Зашифрованный текст сохранен в\n"
-                                                            "C:\\Users\\paksh\\PycharmProjects\\encryptor\\"
-                                                            "for_simmetric\\data_encrypted.txt"))
+                                                            "C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\"
+                                                            "data_encrypted.txt"))
         self.Tip_toOpen_saved.setText(_translate("simmetric", "Нажмите, чтобы открыть\n"
                                                               "полученный файл"))
         self.Open_Saved_File.setText(_translate("simmetric", "Открыть файл"))
@@ -119,8 +119,8 @@ class Ui_simmetric(object):
             self.Tip_for_open_file.setText("Выберите файл, который \n"
                                            "требуется дешифровать")
             self.encr_save_text.setText("<html><head/><body><p>Дешифрованный текст сохранен в</p><p>"
-                                        "C:\\Users\\paksh\\PycharmProjects\\encryptor"
-                                        "\\for_simmetric\\data_decrypted.txt</p></body></html>")
+                                        "C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\"
+                                        "data_decrypted.txt</p></body></html>")
 
     def key_gen(self):
         write_key()
@@ -135,15 +135,14 @@ class Ui_simmetric(object):
             self.encr_save_text.setVisible(True)
 
     def select_dir(self):
-     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\PycharmProjects\\encryptor\\'
-                                                                 'for_simmetric\\', "Text files (*.txt)")
+     self.fname = QFileDialog.getOpenFileName(None, 'Open file', 'C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\'
+                                                                 '', "Text files (*.txt)")
 
     def open_file(self):
         if self.Selector.currentIndex() == 0:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_simmetric\\data_encrypted.txt")
+            os.system("C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\data_encrypted.txt")
         if self.Selector.currentIndex() == 1:
-            os.system("C:\\Users\\paksh\\PycharmProjects\\encryptor\\for_simmetric"
-                      "\\data_decrypted.txt")
+            os.system("C:\\Users\\paksh\\Desktop\\test_text\\simmetric\\data_decrypted.txt")
 
     def end(self):
         self.Key_gen.setVisible(False)
