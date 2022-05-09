@@ -6,7 +6,7 @@ from simmetric_gui import Ui_simmetric
 class Ui_main_window(object):
     def setupUi(self, main_window):
         main_window.setObjectName("main_window")
-        main_window.resize(440, 250)
+        main_window.resize(440, 200)
         self.simmetric_Cesar = QtWidgets.QPushButton(main_window)
         self.simmetric_Cesar.setGeometry(QtCore.QRect(40, 50, 360, 30))
         self.simmetric_Cesar.setObjectName("simmetric")
@@ -16,9 +16,6 @@ class Ui_main_window(object):
         self.asimmetric = QtWidgets.QPushButton(main_window)
         self.asimmetric.setGeometry(QtCore.QRect(40, 130, 360, 30))
         self.asimmetric.setObjectName("asimmetric")
-        self.pushButton_4 = QtWidgets.QPushButton(main_window)
-        self.pushButton_4.setGeometry(QtCore.QRect(40, 170, 360, 30))
-        self.pushButton_4.setObjectName("asimmetric")
         self.label = QtWidgets.QLabel(main_window)
         self.label.setGeometry(QtCore.QRect(40, 20, 360, 30))
         self.label.setObjectName("label")
@@ -32,7 +29,6 @@ class Ui_main_window(object):
         self.simmetric_Cesar.setText(_translate("main_window", "Симметричное шифрование (Шифр Цезаря)"))
         self.simmetric.setText(_translate("main_window", "Симметричное шифрование (Случайный ключ)"))
         self.asimmetric.setText(_translate("main_window", "Ассиметричное шифрование (RSA)"))
-        self.pushButton_4.setText(_translate("main_window", "PushButton"))
         self.label.setText(_translate("main_window", "<html><head/><body><p>Выберите алгоритм"
                                                      ", с которым будете работать:</p><p><br/></p></body></html>"))
 
