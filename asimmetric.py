@@ -3,7 +3,7 @@ from Crypto.Cipher import PKCS1_OAEP, AES
 import os
 
 
-def encrypt(dataFile, publicKeyFile):
+def encrypt(dataFile, publicKeyFile, curr_dirr):
     with open(dataFile, 'rb') as f:
         data = f.read()
 
@@ -22,12 +22,12 @@ def encrypt(dataFile, publicKeyFile):
     ciphertext, tag = cipher.encrypt_and_digest(data)
 
     [fileName, fileExtension] = dataFile.split('.')
-    encryptedFile = fileName + '_encrypted.' + fileExtension
+    encryptedFile = curr_dirr + '/data_encrypted.' + fileExtension
     with open(encryptedFile, 'wb') as f:
         [f.write(x) for x in (encrypted_session_key, cipher.nonce, tag, ciphertext)]
 
 
-def decrypt(dataFile, privateKeyFile):
+def decrypt(dataFile, privateKeyFile, curr_dirr):
     with open(privateKeyFile, 'rb') as f:
         privateKey = f.read()
         key = RSA.import_key(privateKey)
@@ -42,6 +42,6 @@ def decrypt(dataFile, privateKeyFile):
     data = cipher.decrypt_and_verify(ciphertext, tag)
 
     [fileName, fileExtension] = dataFile.split('.')
-    decryptedFile = fileName + '_decrypted.' + fileExtension
+    decryptedFile = curr_dirr + '/data_decrypted.' + fileExtension
     with open(decryptedFile, 'wb') as f:
         f.write(data)
