@@ -27,7 +27,7 @@ def encryption(message, key):
         is_eng = i in alphabet_en_up or i in alphabet_en_down
         is_rus = i in alphabet_ru_up or i in alphabet_ru_down
         if is_eng:
-            result += do_encryption_things(key, i, 'end', True)
+            result += do_encryption_things(key, i, 'eng', True)
         elif is_rus:
             result += do_encryption_things(key, i, 'rus', True)
         else:
@@ -50,4 +50,4 @@ def decryption(message, key):
 
 
 def get_caesar(message, key, action):
-    return encryption(message, key) if action == 1 else decryption(message, key)
+    return encryption(message, key) if action == 0 else decryption(message, key)

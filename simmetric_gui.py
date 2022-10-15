@@ -2,6 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from simmetric import *
 import os
+from ErrorWindow import *
+import cryptography.fernet
 
 
 class Ui_simmetric(object):
@@ -104,7 +106,7 @@ class Ui_simmetric(object):
             self.Selector.setVisible(False)
             self.encr_save_text.setText("Зашифрованный текст сохранен в\n"
                                         f"{self.curr_dir}/"
-                                        "data_encrypted.txt")
+                                        "data_encrypted")
             self.Tip_for_open_file.setText("Выберите файл, который \n"
                                            "требуется зашифровать")
             self.start_txt.setText("Вы начали работу с шифрованием")
@@ -127,28 +129,96 @@ class Ui_simmetric(object):
                                            "требуется дешифровать")
             self.encr_save_text.setText("<html><head/><body><p>Дешифрованный текст сохранен в</p><p>"
                                         f"{self.curr_dir}/"
-                                        "data_decrypted.txt</p></body></html>")
+                                        "data_decrypted</p></body></html>")
 
     def key_gen(self):
-        write_key(self.curr_dir)
-        self.dir_to_key.setVisible(True)
+        try:
+            write_key(self.curr_dir)
+            self.dir_to_key.setVisible(True)
+        except PermissionError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран путь сохранения файлов')
+                self.ErrorWindow.show()
+
+            errwin(self)
+
 
     def start_click(self):
-        if self.Selector.currentIndex() == 0:
-            encrypt(self.fname[0], self.curr_dir)
-            self.encr_save_text.setVisible(True)
-        else:
-            decrypt(self.fname[0], self.curr_dir)
-            self.encr_save_text.setVisible(True)
+
+        try:
+            if self.Selector.currentIndex() == 0:
+                encrypt(self.fname[0], self.curr_dir)
+                self.encr_save_text.setVisible(True)
+            else:
+                decrypt(self.fname[0], self.curr_dir)
+                self.encr_save_text.setVisible(True)
+        except FileNotFoundError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не сгенерированы ключи')
+                self.ErrorWindow.show()
+
+            errwin(self)
+        except IndexError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран файл')
+                self.ErrorWindow.show()
+
+            errwin(self)
+        except cryptography.fernet.InvalidToken:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран файл')
+                self.ErrorWindow.show()
+
+            errwin(self)
 
     def select_dir(self):
      self.fname = QFileDialog.getOpenFileName(None, 'Open file')
 
     def open_file(self):
-        if self.Selector.currentIndex() == 0:
-            os.system(self.curr_dir + "/data_encrypted.txt")
-        if self.Selector.currentIndex() == 1:
-            os.system(self.curr_dir + "/data_decrypted.txt")
+        try:
+            if self.Selector.currentIndex() == 0:
+                [file_name, file_ext] = self.fname[0].split('.')
+                file_name = file_name + "_encrypted." + file_ext
+                os.system(file_name.replace("/", "\\"))
+            if self.Selector.currentIndex() == 1:
+                [file_name, file_ext] = self.fname[0].split('.')
+                file_name = file_name + "_decrypted." + file_ext
+                file_name = file_name.replace("_encrypted", '')
+                os.system(file_name.replace("/", "\\"))
+        except IndexError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Нечего открывать')
+                self.ErrorWindow.show()
+
+            errwin(self)
 
     def end(self):
         self.Key_gen.setVisible(False)

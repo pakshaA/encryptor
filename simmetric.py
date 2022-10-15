@@ -20,7 +20,9 @@ def encrypt(filename, curr_dir):
     with open(filename, 'rb') as file:
         file_data = file.read()
     encrypted_data = f.encrypt(file_data)
-    with open(curr_dir + '/data_encrypted.txt', 'wb') as file:
+    [fname, file_extension] = filename.split(".")
+    encrypted_file = curr_dir + "/data_encrypted." + file_extension
+    with open(encrypted_file, 'wb') as file:
         file.write(encrypted_data)
 
 
@@ -30,5 +32,7 @@ def decrypt(filename, curr_dir):
     with open(filename, 'rb') as file:
         encrypted_data = file.read()
     decrypted_data = f.decrypt(encrypted_data)
-    with open(curr_dir + '/data_decrypted.txt', 'wb') as file:
+    [fname, file_extension] = filename.split(".")
+    decrypted_file = curr_dir + "/data_decrypted." + file_extension
+    with open(decrypted_file, 'wb') as file:
         file.write(decrypted_data)

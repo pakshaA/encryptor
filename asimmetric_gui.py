@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QFileDialog
 from asimmetric import *
 from key_gen import *
 import os
+from ErrorWindow import *
+import cryptography.fernet
 
 
 class Ui_RSA(object):
@@ -24,7 +26,7 @@ class Ui_RSA(object):
         self.start_txt.setGeometry(30, 30, 650, 30)
         self.start_txt.setObjectName("start_txt")
         self.Open_dir_to_save = QtWidgets.QPushButton(RSA)
-        self.Open_dir_to_save.setGeometry(QtCore.QRect(270, 450, 400, 30))
+        self.Open_dir_to_save.setGeometry(QtCore.QRect(270, 480, 400, 30))
         self.Open_dir_to_save.setObjectName("Open_dir_to_save")
         self.Select_file = QtWidgets.QLabel(RSA)
         self.Select_file.setGeometry(QtCore.QRect(30, 240, 250, 70))
@@ -123,27 +125,78 @@ class Ui_RSA(object):
                                      "который требуется дешифровать")
 
     def start_click(self):
-        if self.Method.currentIndex() == 0:
-            encrypt(self.fname[0], f"{self.curr_dir}/public.pem", self.curr_dir)
+        try:
+            if self.Method.currentIndex() == 0:
+                encrypt(self.fname[0], f"{self.curr_dir}/public.pem", self.curr_dir)
 
-            self.save_text.setText("Файл с зашифрованным текстом сохранен в \n" + self.curr_dir +
-                                   "/data_encrypted")
-            self.save_text.setVisible(True)
-        else:
-            decrypt(self.fname[0], self.curr_dir + "/private.pem", self.curr_dir)
-            self.save_text.setVisible(True)
-            self.save_text.setText("Файл с дешифрованным текстом сохранен в\n" + self.curr_dir +
-                                   "/data_decrypted")
+                self.save_text.setText("Файл с зашифрованным текстом сохранен в \n" + self.curr_dir +
+                                       "/data_encrypted")
+                self.save_text.setVisible(True)
+            else:
+                decrypt(self.fname[0], self.curr_dir + "/private.pem", self.curr_dir)
+                self.save_text.setVisible(True)
+                self.save_text.setText("Файл с дешифрованным текстом сохранен в\n" + self.curr_dir +
+                                       "/data_decrypted")
+        except FileNotFoundError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не сгенерированы ключи')
+                self.ErrorWindow.show()
+
+            errwin(self)
+        except IndexError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран файл')
+                self.ErrorWindow.show()
+
+            errwin(self)
+
+        except cryptography.fernet.InvalidToken:
+
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран файл')
+                self.ErrorWindow.show()
+
+            errwin(self)
 
     def keys_gen(self):
-        if self.Method.currentIndex() == 0:
-            key_gen(self.curr_dir)
-            self.dir_to_keys.setText(
-                f"<html><head/><body><p>Ключи сгенерированы в</p><p> {self.curr_dir}"
-                "/private</p><p>"
-                "И " + f"{self.curr_dir}" + "/"
-                                            "public</p></body></html>")
-            self.dir_to_keys.setVisible(True)
+        try:
+            if self.Method.currentIndex() == 0:
+                key_gen(self.curr_dir)
+                self.dir_to_keys.setText(
+                    f"<html><head/><body><p>Ключи сгенерированы в</p><p> {self.curr_dir}"
+                    "/private</p><p>"
+                    "И " + f"{self.curr_dir}" + "/"
+                                                "public</p></body></html>")
+                self.dir_to_keys.setVisible(True)
+        except PermissionError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Не выбран путь сохранения файлов')
+                self.ErrorWindow.show()
+
+            errwin(self)
 
     def get_dirr(self):
         self.curr_dir = QFileDialog.getExistingDirectory(self, "Выбрать папку")
@@ -166,7 +219,25 @@ class Ui_RSA(object):
         self.fname = QFileDialog.getOpenFileName(None, 'Open file')
 
     def open_file(self):
-        if self.Method.currentIndex() == 0:
-            os.system(self.curr_dir + "/data_encrypted.txt")
-        if self.Method.currentIndex() == 1:
-            os.system(self.curr_dir + "/data_decrypted.txt")
+        try:
+            if self.Method.currentIndex() == 0:
+                [file_name, file_ext] = self.fname[0].split('.')
+                file_name=file_name + "_encrypted."+file_ext
+                os.system(file_name.replace("/", "\\"))
+            if self.Method.currentIndex() == 1:
+                [file_name, file_ext] = self.fname[0].split('.')
+                file_name=file_name + "_decrypted."+file_ext
+                file_name=file_name.replace("_encrypted", '')
+                os.system(file_name.replace("/", "\\"))
+        except IndexError:
+            class ErrorWindow(QtWidgets.QWidget, Ui_ErrorWindow):
+                def __init__(self, parent=None):
+                    super(ErrorWindow, self).__init__(parent)
+                    self.setupUi(self)
+
+            def errwin(self):
+                self.ErrorWindow = ErrorWindow()
+                self.ErrorWindow.ErrorText.setText('Нечего открывать')
+                self.ErrorWindow.show()
+
+            errwin(self)

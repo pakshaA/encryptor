@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Cesar import *
+import re
 
 
 class Ui_Cesar(object):
@@ -46,5 +47,6 @@ class Ui_Cesar(object):
         self.comboBox.setItemText(1, _translate("Cesar", "Дешифрование"))
 
     def btn_click(self):
-        res = get_caesar(self.Input_Text.toPlainText(), int(self.Key_value.text()), self.comboBox.currentIndex())
+        key = re.sub(r'','0',self.Key_value.text())
+        res = get_caesar(self.Input_Text.toPlainText(), int(key), self.comboBox.currentIndex())
         self.Output_Text.setText(res)
